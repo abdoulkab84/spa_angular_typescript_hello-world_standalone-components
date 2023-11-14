@@ -5,16 +5,20 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { ROUTES } from './app/routes';
 import { environment } from './environments/environment';
+import { AuthModule } from '@auth0/auth0-angular';
 
 if (environment.production) {
   enableProdMode();
 }
 
 bootstrapApplication(AppComponent, {
-  providers:[
+  providers: [
     importProvidersFrom(
       RouterModule.forRoot(ROUTES),
-      HttpClientModule
+      HttpClientModule,
+      AuthModule.forRoot({
+        ...environment.auth0
+      }),
     ),
   ]
 });
